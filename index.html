@@ -1,1 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>To branch or not to branch? · SOCHIFI 2026</title>
+<meta name="description" content="Estabilidad de loops en redes de fluido adaptativas: modelo mínimo y bifurcación saddle-node. Poster XXV SOCHIFI.">
+<meta name="color-scheme" content="dark light">
+<style>
+:root{--bg:#fff;--fg:#17171a;--mute:#62626b;--line:#e3e3e8;--card:#f5f5f7;--acc:#0f8a5f;--link:#1a5fb4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#ececf0;--mute:#9a9aa5;--line:#222228;--card:#0e0e11;--acc:#2fd49b;--link:#7db4ff}}
+:root[data-theme="dark"]{--bg:#000;--fg:#ececf0;--mute:#9a9aa5;--line:#222228;--card:#0e0e11;--acc:#2fd49b;--link:#7db4ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+main,header,footer{max-width:720px;margin:0 auto;padding:0 20px}
+a{color:var(--link)}
+header{padding-top:56px;padding-bottom:8px}
+.kicker{color:var(--acc);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}
+h1{font-size:clamp(1.8rem,6vw,2.7rem);line-height:1.15;margin:0 0 14px;font-weight:650}
+.authors{color:var(--mute);margin:0}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+.btn{display:inline-block;padding:9px 16px;border:1px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;font-size:.92rem;background:var(--card)}
+.btn.p{background:var(--acc);border-color:var(--acc);color:#000;font-weight:600}
+.btn:hover{border-color:var(--acc)}
+nav{display:flex;gap:18px;overflow-x:auto;padding:22px 20px 0;max-width:720px;margin:0 auto;font-size:.88rem;white-space:nowrap}
+nav a{color:var(--mute);text-decoration:none}nav a:hover{color:var(--fg)}
+section{padding:46px 0 6px;border-top:1px solid var(--line);margin-top:46px}
+section:first-of-type{border:0;margin-top:20px}
+h2{font-size:1.4rem;margin:0 0 14px;font-weight:620}
+p{margin:0 0 14px}
+.eq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0;overflow-x:auto;font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.08rem;line-height:2}
+.eq small{color:var(--mute);font-family:system-ui,sans-serif;font-size:.8rem;float:right;margin-left:16px}
+figure{margin:22px 0}
+figcaption{color:var(--mute);font-size:.86rem;margin-top:8px}
+video,.ph,.img{width:100%;border-radius:12px;display:block;background:#000;border:1px solid var(--line)}
+video{aspect-ratio:16/9}
+.ph{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:.9rem;background:var(--card)}
+.img{background:#fff}
+.callout{border-left:3px solid var(--acc);padding:2px 0 2px 16px;margin:18px 0;color:var(--fg)}
+ol.refs{padding-left:20px;color:var(--mute);font-size:.88rem;line-height:1.55}
+footer{padding-top:50px;padding-bottom:60px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line);margin-top:56px}
+.group{display:block;text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px 20px;margin:0 0 26px;color:var(--fg)}
+.group:hover{border-color:var(--acc)}.group b{display:block;font-size:1.05rem}.group span{color:var(--mute);font-size:.9rem}
+#theme{position:fixed;top:calc(12px + env(safe-area-inset-top));right:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;width:38px;height:38px;font-size:1rem;cursor:pointer}
+</style>
+</head>
+<body>
+<button id="theme" aria-label="Cambiar tema">◐</button>
 
+<header>
+  <p class="kicker">XXV Simposio SOCHIFI · Santiago, Chile</p>
+  <h1>To branch or not to branch?<br>Crecimiento y adaptación en redes de fluido</h1>
+  <p class="authors">Benjamín Medel · Ignacio Bordeu<br>Departamento de Física, FCFM, Universidad de Chile</p>
+  <div class="btns">
+    <a class="btn p" href="assets/Poster_SOCHIFI_2026.pdf">Poster (PDF)</a>
+    <a class="btn" href="#grupo">Living Matter Lab</a>
+    <a class="btn" href="mailto:benjamin.medel@ing.uchile.cl">Contacto</a>
+  </div>
+</header>
+<nav>
+  <a href="#idea">Idea</a><a href="#modelo">Modelo</a><a href="#saddle">Saddle-node</a>
+  <a href="#soluciones">Soluciones u(t)</a><a href="#loops">Loops</a><a href="#refs">Referencias</a>
+</nav>
+
+<main>
+<section id="idea">
+  <h2>La idea</h2>
+  <p>Las venas, las hojas, los hongos y las redes eléctricas transportan flujo a través de redes. Si cada arista ajusta su conductancia según el flujo que lleva, la red termina organizándose para disipar menos energía. En <em>Physarum polycephalum</em> esto ocurre mientras la red crece.</p>
+  <p>En nuestras simulaciones aparecen y desaparecen <b>loops</b>. Esta página explica un modelo mínimo para entender cuándo un loop sobrevive y cuándo colapsa a un árbol.</p>
+  <figure>
+    <video controls preload="none" playsinline src="videos/simtopo.mp4"></video>
+    <figcaption>Simulación de una red que crece y forma loops. Color: conductancia, de azul (pequeña) a amarillo (grande).</figcaption>
+  </figure>
+</section>
+
+<section id="modelo">
+  <h2>El modelo mínimo</h2>
+  <p>Dos conductancias en paralelo reciben un flujo total constante <var>Q</var>. Cada una relaja hacia su óptimo, que depende del flujo que transporta. A la primera la dejamos en el techo, <var>C</var><sub>1</sub> = <var>C</var><sub>max</sub>, y la segunda es <var>C</var><sub>2</sub> = <var>u C</var><sub>max</sub>. Queda un solo grado de libertad.</p>
+  <div class="eq">dC<sub>i</sub>/dt = C<sub>i</sub>* − C<sub>i</sub>, &nbsp; C<sub>i</sub>* = C<sub>0</sub> Q<sub>i</sub><sup>α</sup><small>adaptación local</small></div>
+  <p>Como las dos están en paralelo, <var>Q</var><sub>2</sub> = <var>Q u</var>/(1+<var>u</var>). Con <var>τ</var> = 1:</p>
+  <div class="eq">du/dt = κ ( u/(1+u) )<sup>α</sup> − u, &nbsp; κ = C<sub>0</sub> Q<sup>α</sup> / C<sub>max</sub><small>ecuación (1)</small></div>
+  <p>Todo el sistema depende de dos números: <var>κ</var> (que baja al subir el techo <var>C</var><sub>max</sub>) y el exponente <var>α</var>.</p>
+  <div class="callout"><b>Cómo leerlo.</b> <var>u</var> = 0 es el loop colapsado (un árbol). <var>u</var>* &gt; 0 es un loop vivo, con las dos aristas transportando flujo.</div>
+</section>
+
+<section id="saddle">
+  <h2>Una bifurcación saddle-node</h2>
+  <p>Los puntos fijos cumplen <var>r</var>(<var>u</var>) = <var>u</var>, con <var>r</var>(<var>u</var>) = κ(<var>u</var>/(1+<var>u</var>))<sup>α</sup>. Para 1 &lt; α &lt; 2 la curva puede quedar por debajo de la diagonal, tocarla o cruzarla en dos puntos. Un punto es estable y el otro inestable. Al aumentar κ los dos nacen juntos, en una tangencia, y esa es la bifurcación.</p>
+  <div class="eq">u<sub>c</sub> = α − 1, &nbsp; κ<sub>c</sub> = (α−1) ( α/(α−1) )<sup>α</sup><small>condición r = u, r′ = 1</small></div>
+  <p>Por ejemplo, con α = 4/3 resulta κ<sub>c</sub> ≈ 2,12. Si κ &gt; κ<sub>c</sub> hay dos equilibrios en (0,1). El inestable es la frontera: parte por debajo y el loop colapsa, parte por encima y se estabiliza. Si κ crece más, el equilibrio estable llega al techo en κ = 2<sup>α</sup>.</p>
+  <figure>
+    <video controls preload="none" playsinline src="videos/si.mp4"></video>
+    <figcaption>Retrato de fase <var>r</var>(<var>u</var>) vs <var>u</var> al variar κ: la curva se acerca a la diagonal, la toca y la cruza.</figcaption>
+  </figure>
+</section>
+
+<section id="soluciones">
+  <h2>Soluciones u(t)</h2>
+  <p>Integramos la ecuación (1) para muchas condiciones iniciales. Cada fila es un α distinto y cada columna un κ cada vez mayor: sin puntos fijos, justo en el saddle-node, con un equilibrio estable y uno inestable, y solo con el inestable.</p>
+  <figure>
+    <img class="img" src="assets/ut_collage.png" alt="Soluciones u(t) para distintos α y κ alrededor del saddle-node" loading="lazy">
+    <figcaption>Cerca del saddle-node la dinámica se vuelve lenta: las trayectorias se quedan largo rato cerca de <var>u</var> = α − 1.</figcaption>
+  </figure>
+  <figure>
+    <video controls preload="none" playsinline src="videos/trayectorias.mp4"></video>
+    <figcaption>Las mismas trayectorias animadas mientras κ cruza κ<sub>c</sub>.</figcaption>
+  </figure>
+</section>
+
+<section id="loops">
+  <h2>¿Qué significa para los loops?</h2>
+  <p>La bifurcación implica <b>biestabilidad</b>: con el mismo techo <var>C</var><sub>max</sub>, un loop puede sobrevivir o colapsar según su historia. Un loop pequeño se pierde y uno suficientemente grande se mantiene. En una red real el flujo fluctúa, así que esperamos loops estables en las zonas que transportan flujo suficiente, y ese umbral lo fija <var>C</var><sub>max</sub>.</p>
+  <p>El siguiente paso es comparar con las simulaciones de redes en crecimiento, donde el flujo no es constante.</p>
+</section>
+
+<section id="refs">
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>S. H. Strogatz. <i>Nonlinear Dynamics and Chaos</i>. Westview Press, 2014.</li>
+    <li>K. Bhattacharyya, D. Zwicker, K. Alim. Memory capacity of adaptive flow networks. <i>Phys. Rev. E</i> 107, 034407 (2023).</li>
+    <li>F. Corson. Fluctuations and Redundancy in Optimal Transport Networks. <i>Phys. Rev. Lett.</i> 104, 048703 (2010).</li>
+    <li>F. Kaiser, H. Ronellenfitsch, D. Witthaut. Discontinuous transition to loop formation in optimal supply networks. <i>Nat. Commun.</i> 11, 5796 (2020).</li>
+  </ol>
+</section>
+</main>
+
+<footer id="grupo">
+  <!-- TODO: reemplaza el href por la URL del Living Matter Lab -->
+  <a class="group" id="group-link" href="https://bordeu.cl/">
+    <b>Living Matter Lab →</b>
+    <span>Departamento de Física, FCFM, Universidad de Chile</span>
+  </a>
+  Financiado por FONDECYT Regular N°1261211.<br>
+  XXV Simposio SOCHIFI, Santiago, Chile · <a href="mailto:benjamin.medel@ing.uchile.cl">benjamin.medel@ing.uchile.cl</a>
+</footer>
+
+<script>
+// tema: automático por defecto; el botón alterna y recuerda la elección
+(function(){var r=document.documentElement,b=document.getElementById('theme');
+try{var s=localStorage.getItem('theme');if(s)r.dataset.theme=s}catch(e){}
+b.onclick=function(){var dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',r.dataset.theme)}catch(e){}}})();
+// si un video aún no existe, muestra un recuadro en vez de un reproductor vacío
+document.querySelectorAll('video').forEach(function(v){
+ fetch(v.getAttribute('src'),{method:'HEAD'}).then(function(r){if(!r.ok)throw 0}).catch(function(){
+  var d=document.createElement('div');d.className='ph';d.textContent='Video próximamente';v.replaceWith(d)})});
+</script>
+</body>
+</html>
