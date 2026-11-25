@@ -97,22 +97,9 @@ footer{padding-top:50px;padding-bottom:60px;color:var(--mute);font-size:.88rem;b
 </figure>
 </section>
 
-<section id="soluciones">
-  <h2>Soluciones u(t)</h2>
-  <p>Integramos la ecuación (1) para muchas condiciones iniciales. Cada fila es un α distinto y cada columna un κ cada vez mayor: sin puntos fijos, justo en el saddle-node, con un equilibrio estable y uno inestable, y solo con el inestable.</p>
-  <figure>
-    <img class="img" src="assets/ut_collage.png" alt="Soluciones u(t) para distintos α y κ alrededor del saddle-node" loading="lazy">
-    <figcaption>Cerca del saddle-node la dinámica se vuelve lenta: las trayectorias se quedan largo rato cerca de <var>u</var> = α − 1.</figcaption>
-  </figure>
-  <figure>
-    <video controls preload="none" playsinline src="videos/trayectorias.mp4"></video>
-    <figcaption>Las mismas trayectorias animadas mientras κ cruza κ<sub>c</sub>.</figcaption>
-  </figure>
-</section>
-
 <section id="loops">
   <h2>¿Qué significa para los loops?</h2>
-  <p>La bifurcación implica <b>biestabilidad</b>: con el mismo techo <var>C</var><sub>max</sub>, un loop puede sobrevivir o colapsar según su historia. Un loop pequeño se pierde y uno suficientemente grande se mantiene. En una red real el flujo fluctúa, así que esperamos loops estables en las zonas que transportan flujo suficiente, y ese umbral lo fija <var>C</var><sub>max</sub>.</p>
+  <p>La bifurcación implica <b>biestabilidad</b>: con el mismo techo <var>C</var><sub>max</sub>, un loop puede sobrevivir o colapsar según su condición inicial. Un loop pequeño se pierde y uno suficientemente grande se mantiene. En una red real el flujo fluctúa, así que esperamos loops estables en las zonas que transportan flujo suficiente, y ese umbral lo fija <var>C</var><sub>max</sub>.</p>
   <p>El siguiente paso es comparar con las simulaciones de redes en crecimiento, donde el flujo no es constante.</p>
 </section>
 
