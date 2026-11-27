@@ -68,12 +68,24 @@ footer{padding-top:50px;padding-bottom:60px;color:var(--mute);font-size:.88rem;b
 <section id="idea">
   <h2>La idea</h2>
   <p>Las redes vasculares, el folla, los hongos y las redes eléctricas transportan flujo a través de redes. Si cada arista ajusta su conductancia según el flujo que lleva, la red termina organizándose para disipar menos energía. En <em>Physarum polycephalum</em> esto ocurre mientras la red crece.</p>
-  <p>Los <b>loops</b> se entienden como un conjunto de múltiples caminos para llegar de un nodo A a un nodo B. </p>
+  <p>Los <b>loops</b> se entienden como un conjunto de múltiples caminos para llegar de un nodo A a un nodo B. </b>
   <figure>
     <video controls preload="none" playsinline src="videos/delta.mp4"></video>
     <figcaption>Evolución de un delta fluvial (<a href="https://aguasamazonicas.org/cuencas/cuencas-principales/ucayali">Río Ucayali, Perú</a>) en el tiempo. Podemos ver cómo se van formando loops que en el tiempo desaparecen.</figcaption>
   </figure>
-  <p>En nuestras simulaciones aparecen y desaparecen <b>loops</b>. Esta página explica un modelo mínimo para entender cuándo un loop sobrevive y cuándo colapsa a un árbol.</p>
+  <p>En 1926, el fisiologo Cecil D. Murray propuso un mecanismo de los seres vivos que se viene desarrollando producto de la evolución de las especies, donde establece que los procesos de tranpsporte (como el transporte de oxígeno) en seres vivos es óptimo </p>
+  <figure>
+  <img class="img" src="assets/cita murray.png"
+       alt="Cita de murray" loading="lazy">
+  <figcaption>Murray en su artículo establece que vía evolución el proceso de transporte de oxígeno se desarrollo por evolución hasta llegar a su óptimo energético.</figcaption>
+  </figure>
+  <h2>Nuestro contexto</h2>
+  <p>Desde 2025 llevamos explorando modelos traídos de física estadística mezclando procesos estocásticos con principios de optimización (como la ley de murray) para entender cómo afecta la adaptación biológica en pos de minimizar la pérdida de energía producto del transporte de fluido a la organización espacial de patrones.</p>
+  <figure>
+    <video controls preload="none" playsinline src="videos/eden murray.mp4"></video>
+    <figcaption>Simulación de una red que crece siguiendo la ley de murray, dados los parámetros del sistema, la red no crece infinitamente y llega a una cota. </figcaption>
+  </figure>
+  <p>En nuestras simulaciones actuales, agregamos la inclusión de un <em>loop</em> cada vez que ocurre un proceso de ramificación, éstos aparecen y desaparecen dado que al adaptar, su conductancia decae a 0. Esta página explica un modelo mínimo para entender cuándo un loop sobrevive y cuándo colapsa a un árbol.</p>
   <figure>
     <video controls preload="none" playsinline src="videos/simtopo.mp4"></video>
     <figcaption>Simulación de una red que crece y forma loops. Color: conductancia, de azul (pequeña) a amarillo (grande).</figcaption>
